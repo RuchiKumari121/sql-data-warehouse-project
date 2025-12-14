@@ -1,4 +1,14 @@
----VIEW CREATED : CUSTOMERS
+/*Create silver Layer
+======================
+creating tables
+======================
+*/
+
+
+--CREATE VIEW : DIM_CUSTOMERS
+IF OBJECT_ID('gold.dim_customers', 'V') IS NOT NULL
+	DROP VIEW gold.dim_customers;
+GO
 CREATE VIEW gold.dim_customers AS
 SELECT 
 	ROW_NUMBER() OVER(ORDER BY cst_id) AS customer_key,
@@ -24,7 +34,10 @@ SELECT DISTINCT gender FROM gold.dim_customers
 
 --================================================================================================
 
----VIEW CREATED : CUSTOMERS
+--CREATE VIEW : DIM_PRODUCTS
+IF OBJECT_ID('gold.dim_products', 'V') IS NOT NULL
+	DROP VIEW gold.dim_products;
+GO
 CREATE VIEW gold.dim_products AS
 SELECT 
 ROW_NUMBER() OVER(ORDER BY pn.prd_start_dt, pn.prd_key) AS product_key,
@@ -45,6 +58,10 @@ WHERE pn.prd_end_dt IS NULL--Filter out all historical data
 
 
 --================================================================================================
+--CREATE VIEW : FACT_SALES
+IF OBJECT_ID('gold.fact_sales', 'V') IS NOT NULL
+	DROP VIEW gold.fact_sales;
+GO
 CREATE VIEW gold.fact_sales AS
 SELECT 
 sd.sls_ord_num AS order_number,
