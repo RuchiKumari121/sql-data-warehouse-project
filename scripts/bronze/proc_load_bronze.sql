@@ -3,6 +3,11 @@
 LOADING SOURCE TABLES INTO THE BRONZE LAYER
 ============================================
 */
+/*======================
+usage example :
+EXEC bronze.load_bronze;
+========================
+*/
 
 
 ----CRM SOURCE
